@@ -1,4 +1,4 @@
-# reactnative-appusers
+# APP Users
 Exercise for first app with REST API 
 
 
