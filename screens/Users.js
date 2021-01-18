@@ -2,7 +2,7 @@ import React, { useEffect, useState} from 'react';
 import { StyleSheet, View, FlatList, Text } from 'react-native';
 import ListItem from '../components/ListItem';
 
-export default () => {
+export default ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState([]);
 
@@ -13,7 +13,9 @@ export default () => {
     setLoading(false)
   }
 
-  useEffect(() => fetchUsers(), []);
+  useEffect(() => {
+    fetchUsers()
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -21,8 +23,13 @@ export default () => {
         <FlatList
           style = { styles.list}
           data = { users }
-          keyExtractor = { x => x.id }
-          renderItem = { ({item}) => <ListItem title={item.name} /> }
+          keyExtractor = { x => String(x.id) }
+          renderItem = { ({item}) => <ListItem
+            title={item.name}
+            onPress={
+              () => navigation.navigate('Posts', { user_id: item.id}
+            )}
+          />}
         />
       }
     </View>
